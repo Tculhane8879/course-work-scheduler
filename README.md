@@ -8,6 +8,8 @@ A full-stack web application that helps students generate optimized course and w
 - Spring Boot
 - PostgreSQL
 - Docker
+- Vite
+- Vitest
 - GitHub Actions, planned
 - Cloud deployment, planned
 
@@ -32,7 +34,7 @@ docker compose up -d
 
 ```bash
 cd backend
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 Backend runs at:
@@ -61,16 +63,54 @@ Frontend runs at:
 http://localhost:5173
 ```
 
+During local development, the Vite dev server proxies `/api` requests to the
+Spring Boot backend at `http://localhost:8080`.
+
+## Configuration
+
+Example environment files are included for local setup:
+
+```text
+backend/.env.example
+frontend/.env.example
+```
+
+The backend also provides local defaults in `application.properties`, so Docker
+Compose plus `./mvnw spring-boot:run` works without extra configuration.
+
+## Tests
+
+### Backend
+
+```bash
+cd backend
+./mvnw test
+```
+
+Backend tests use an in-memory H2 database so they can run without starting
+PostgreSQL.
+
+### Frontend
+
+```bash
+cd frontend
+npm run test:unit -- --run
+npm run build
+```
+
 ## Current Features
 
 - Spring Boot backend setup
 - Vue frontend setup
 - PostgreSQL database setup
 - Health check REST endpoint
+- Course CRUD REST API
+- Basic backend validation and error responses
+- Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Course management
+- Course management UI
 - Section management
 - Work availability management
 - Schedule generation
