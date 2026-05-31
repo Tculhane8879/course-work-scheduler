@@ -105,12 +105,12 @@ npm run build
 - PostgreSQL database setup
 - Health check REST endpoint
 - Course CRUD REST API
+- Course management UI
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Course management UI
 - Section management
 - Work availability management
 - Schedule generation
