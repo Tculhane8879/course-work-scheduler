@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CourseListView from '@/features/courses/CourseListView.vue'
 import ConstraintsView from '@/features/constraints/ConstraintsView.vue'
+import ScheduleGeneratorView from '@/features/schedules/ScheduleGeneratorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/constraints',
       name: 'constraints',
       component: ConstraintsView,
+    },
+    {
+      path: '/schedules',
+      name: 'schedules',
+      component: ScheduleGeneratorView,
     },
   ],
 })

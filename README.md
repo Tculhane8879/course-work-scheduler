@@ -110,12 +110,13 @@ npm run build
 - Section management UI
 - Work availability and constraints REST API
 - Schedule preference management UI
+- Constraint-based schedule generation API
+- Ranked schedule generation UI
+- Schedule scoring
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Schedule generation
-- Schedule scoring
 - Calendar UI
 - Cloud deployment
