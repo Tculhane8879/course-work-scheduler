@@ -108,12 +108,13 @@ npm run build
 - Course management UI
 - Section and meeting-time REST API
 - Section management UI
+- Work availability and constraints REST API
+- Schedule preference management UI
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Work availability management
 - Schedule generation
 - Schedule scoring
 - Calendar UI
