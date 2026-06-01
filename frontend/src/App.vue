@@ -5,6 +5,7 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <RouterLink to="/">Courses</RouterLink>
         <RouterLink to="/constraints">Constraints</RouterLink>
+        <RouterLink to="/schedules">Schedules</RouterLink>
       </nav>
     </header>
 

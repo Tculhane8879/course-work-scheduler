@@ -30,5 +30,6 @@ describe('App', () => {
 
     expect(wrapper.text()).toContain('Course + Work Schedule Optimizer')
     expect(wrapper.text()).toContain('Add Course')
+    expect(wrapper.text()).toContain('Schedules')
   })
 })
