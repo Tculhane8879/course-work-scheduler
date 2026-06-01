@@ -12,9 +12,13 @@ defineProps({
     type: Number,
     default: null,
   },
+  selectedCourseId: {
+    type: Number,
+    default: null,
+  },
 })
 
-defineEmits(['edit', 'delete'])
+defineEmits(['edit', 'delete', 'manage-sections'])
 
 function formatPriority(priority) {
   return priority === 'REQUIRED' ? 'Required' : 'Elective'
@@ -50,6 +54,13 @@ function formatPriority(priority) {
             </span>
           </td>
           <td class="actions" data-label="Actions">
+            <button
+              type="button"
+              :class="{ selected: selectedCourseId === course.id }"
+              @click="$emit('manage-sections', course)"
+            >
+              Sections
+            </button>
             <button type="button" @click="$emit('edit', course)">Edit</button>
             <button
               class="danger-button"
@@ -160,6 +171,12 @@ button:disabled {
 .danger-button {
   color: #b42318;
   border-color: #f3b4ae;
+}
+
+.selected {
+  color: #17407c;
+  border-color: #93c5fd;
+  background: #dbeafe;
 }
 
 @media (max-width: 720px) {

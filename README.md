@@ -106,12 +106,13 @@ npm run build
 - Health check REST endpoint
 - Course CRUD REST API
 - Course management UI
+- Section and meeting-time REST API
+- Section management UI
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Section management
 - Work availability management
 - Schedule generation
 - Schedule scoring

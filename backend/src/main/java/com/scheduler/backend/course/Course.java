@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.scheduler.backend.section.Section;
 
 @Entity
 @Table(name = "courses")
@@ -29,6 +33,9 @@ public class Course {
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Section> sections = new ArrayList<>();
 
     protected Course() {
         // Required by JPA
@@ -75,5 +82,9 @@ public class Course {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public List<Section> getSections() {
+        return sections;
     }
 }
