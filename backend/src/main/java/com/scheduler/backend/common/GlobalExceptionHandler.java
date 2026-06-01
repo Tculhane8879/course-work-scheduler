@@ -1,6 +1,7 @@
 package com.scheduler.backend.common;
 
 import com.scheduler.backend.course.CourseNotFoundException;
+import com.scheduler.backend.section.SectionNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,20 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handleCourseNotFound(
             CourseNotFoundException ex,
+            HttpServletRequest request
+    ) {
+        return new ApiErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(SectionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrorResponse handleSectionNotFound(
+            SectionNotFoundException ex,
             HttpServletRequest request
     ) {
         return new ApiErrorResponse(

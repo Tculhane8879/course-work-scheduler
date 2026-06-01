@@ -3,12 +3,14 @@ import { computed, onMounted, ref } from 'vue'
 import { createCourse, deleteCourse, getCourses, updateCourse } from '@/api/courses'
 import CourseForm from './CourseForm.vue'
 import CourseTable from './CourseTable.vue'
+import SectionPanel from '@/features/sections/SectionPanel.vue'
 
 const courses = ref([])
 const loading = ref(false)
 const saving = ref(false)
 const deletingId = ref(null)
 const editingCourse = ref(null)
+const selectedCourse = ref(null)
 const errorMessage = ref('')
 const successMessage = ref('')
 
@@ -44,6 +46,9 @@ async function handleSubmit(payload) {
       courses.value = courses.value.map((course) =>
         course.id === updatedCourse.id ? updatedCourse : course,
       )
+      if (selectedCourse.value?.id === updatedCourse.id) {
+        selectedCourse.value = updatedCourse
+      }
       successMessage.value = 'Course updated.'
     } else {
       const createdCourse = await createCourse(payload)
@@ -82,12 +87,20 @@ async function handleDelete(course) {
       editingCourse.value = null
     }
 
+    if (selectedCourse.value?.id === course.id) {
+      selectedCourse.value = null
+    }
+
     successMessage.value = 'Course deleted.'
   } catch (error) {
     errorMessage.value = describeError(error)
   } finally {
     deletingId.value = null
   }
+}
+
+function handleManageSections(course) {
+  selectedCourse.value = selectedCourse.value?.id === course.id ? null : course
 }
 
 onMounted(loadCourses)
@@ -133,10 +146,14 @@ onMounted(loadCourses)
           :courses="sortedCourses"
           :loading="loading"
           :deleting-id="deletingId"
+          :selected-course-id="selectedCourse?.id"
           @edit="handleEdit"
           @delete="handleDelete"
+          @manage-sections="handleManageSections"
         />
       </section>
+
+      <SectionPanel :course="selectedCourse" />
     </div>
   </section>
 </template>
