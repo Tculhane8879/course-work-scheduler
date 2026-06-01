@@ -113,10 +113,10 @@ npm run build
 - Constraint-based schedule generation API
 - Ranked schedule generation UI
 - Schedule scoring
+- Weekly calendar visualization for generated schedules
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
 ## Planned Features
 
-- Calendar UI
 - Cloud deployment
