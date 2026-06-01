@@ -1,4 +1,7 @@
 <script setup>
+import { formatDay } from './calendarUtils'
+import WeeklyCalendar from './WeeklyCalendar.vue'
+
 defineProps({
   option: {
     type: Object,
@@ -9,10 +12,6 @@ defineProps({
     required: true,
   },
 })
-
-function formatDay(dayOfWeek) {
-  return dayOfWeek.charAt(0) + dayOfWeek.slice(1).toLowerCase()
-}
 
 function formatModality(modality) {
   return {
@@ -49,6 +48,8 @@ function formatModality(modality) {
         </div>
       </dl>
     </header>
+
+    <WeeklyCalendar :sections="option.sections" />
 
     <div class="section-list">
       <section v-for="section in option.sections" :key="section.sectionId" class="section-item">
