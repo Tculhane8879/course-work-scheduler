@@ -6,6 +6,7 @@
         <RouterLink to="/">Courses</RouterLink>
         <RouterLink to="/constraints">Constraints</RouterLink>
         <RouterLink to="/schedules">Schedules</RouterLink>
+        <RouterLink to="/saved-schedules">Saved</RouterLink>
       </nav>
     </header>
 

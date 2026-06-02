@@ -114,6 +114,8 @@ npm run build
 - Ranked schedule generation UI
 - Schedule scoring
 - Weekly calendar visualization for generated schedules
+- Saved schedule snapshots
+- Saved schedule comparison UI
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
 
