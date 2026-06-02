@@ -16,7 +16,6 @@ Thumbs.db
 
 # Java / Spring Boot
 backend/target/
-backend/.mvn/
 backend/*.iml
 
 # Node / Vue

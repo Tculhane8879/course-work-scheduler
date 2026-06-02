@@ -3,13 +3,43 @@ services:
     image: postgres:16
     container_name: course-work-scheduler-db
     environment:
-      POSTGRES_DB: scheduler_db
-      POSTGRES_USER: scheduler_user
-      POSTGRES_PASSWORD: scheduler_password
+      POSTGRES_DB: ${POSTGRES_DB:-scheduler_db}
+      POSTGRES_USER: ${POSTGRES_USER:-scheduler_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-scheduler_password}
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: course-work-scheduler-api
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://postgres:5432/scheduler_db}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-scheduler_user}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-scheduler_password}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-update}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: course-work-scheduler-web
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
 
 volumes:
   postgres-data:
