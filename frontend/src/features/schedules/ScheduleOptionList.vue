@@ -11,6 +11,8 @@ defineProps({
     default: false,
   },
 })
+
+defineEmits(['save'])
 </script>
 
 <template>
@@ -29,6 +31,7 @@ defineProps({
       :key="index"
       :option="option"
       :rank="index + 1"
+      @save="(scheduleOption, rank) => $emit('save', scheduleOption, rank)"
     />
   </div>
 </template>

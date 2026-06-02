@@ -13,6 +13,8 @@ defineProps({
   },
 })
 
+defineEmits(['save'])
+
 function formatModality(modality) {
   return {
     IN_PERSON: 'In person',
@@ -29,24 +31,29 @@ function formatModality(modality) {
         <p class="rank">Option {{ rank }}</p>
         <h3>{{ option.score.total }} / 100</h3>
       </div>
-      <dl class="score-grid">
-        <div>
-          <dt>Compact</dt>
-          <dd>{{ option.score.compactnessScore }}</dd>
-        </div>
-        <div>
-          <dt>Gaps</dt>
-          <dd>{{ option.score.gapScore }}</dd>
-        </div>
-        <div>
-          <dt>Prefs</dt>
-          <dd>-{{ option.score.preferencePenalty }}</dd>
-        </div>
-        <div>
-          <dt>Load</dt>
-          <dd>-{{ option.score.maxClassesPenalty }}</dd>
-        </div>
-      </dl>
+      <div class="header-tools">
+        <dl class="score-grid">
+          <div>
+            <dt>Compact</dt>
+            <dd>{{ option.score.compactnessScore }}</dd>
+          </div>
+          <div>
+            <dt>Gaps</dt>
+            <dd>{{ option.score.gapScore }}</dd>
+          </div>
+          <div>
+            <dt>Prefs</dt>
+            <dd>-{{ option.score.preferencePenalty }}</dd>
+          </div>
+          <div>
+            <dt>Load</dt>
+            <dd>-{{ option.score.maxClassesPenalty }}</dd>
+          </div>
+        </dl>
+        <button class="save-button" type="button" @click="$emit('save', option, rank)">
+          Save
+        </button>
+      </div>
     </header>
 
     <WeeklyCalendar :sections="option.sections" />
@@ -120,6 +127,12 @@ h3 {
   gap: 0.6rem;
 }
 
+.header-tools {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: end;
+}
+
 .score-grid div {
   border-radius: 8px;
   padding: 0.55rem;
@@ -137,6 +150,18 @@ dt {
 dd {
   color: #172033;
   font-weight: 900;
+}
+
+.save-button {
+  min-height: 2.35rem;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 1rem;
+  color: #ffffff;
+  background: #1f6feb;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
 }
 
 .section-list {
@@ -200,6 +225,10 @@ h4 {
 
   .score-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .header-tools {
+    justify-items: stretch;
   }
 }
 </style>

@@ -2,6 +2,7 @@ package com.scheduler.backend.common;
 
 import com.scheduler.backend.availability.AvailabilityBlockNotFoundException;
 import com.scheduler.backend.course.CourseNotFoundException;
+import com.scheduler.backend.savedschedule.SavedScheduleNotFoundException;
 import com.scheduler.backend.section.SectionNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,20 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handleAvailabilityBlockNotFound(
             AvailabilityBlockNotFoundException ex,
+            HttpServletRequest request
+    ) {
+        return new ApiErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(SavedScheduleNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrorResponse handleSavedScheduleNotFound(
+            SavedScheduleNotFoundException ex,
             HttpServletRequest request
     ) {
         return new ApiErrorResponse(

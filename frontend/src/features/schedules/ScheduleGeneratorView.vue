@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { getCourses } from '@/api/courses'
 import { generateSchedules } from '@/api/schedules'
+import { createSavedSchedule } from '@/api/savedSchedules'
 import CourseSelectionList from './CourseSelectionList.vue'
 import ScheduleOptionList from './ScheduleOptionList.vue'
 
@@ -13,6 +14,7 @@ const loadingCourses = ref(false)
 const generating = ref(false)
 const generated = ref(false)
 const errorMessage = ref('')
+const successMessage = ref('')
 
 const sortedCourses = computed(() =>
   [...courses.value].sort((first, second) => first.code.localeCompare(second.code)),
@@ -53,6 +55,7 @@ async function handleGenerate() {
   generating.value = true
   generated.value = false
   errorMessage.value = ''
+  successMessage.value = ''
 
   try {
     scheduleOptions.value = await generateSchedules({
@@ -64,6 +67,29 @@ async function handleGenerate() {
     errorMessage.value = describeError(error)
   } finally {
     generating.value = false
+  }
+}
+
+async function handleSave(option, rank) {
+  const fallbackName = `Schedule option ${rank}`
+  const name = window.prompt('Name this saved schedule', fallbackName)
+
+  if (!name || !name.trim()) {
+    return
+  }
+
+  errorMessage.value = ''
+  successMessage.value = ''
+
+  try {
+    await createSavedSchedule({
+      name: name.trim(),
+      score: option.score,
+      sections: option.sections,
+    })
+    successMessage.value = 'Schedule saved.'
+  } catch (error) {
+    errorMessage.value = describeError(error)
   }
 }
 
@@ -86,6 +112,7 @@ onMounted(loadCourses)
     </header>
 
     <div v-if="errorMessage" class="alert error" role="alert">{{ errorMessage }}</div>
+    <div v-if="successMessage" class="alert success" role="status">{{ successMessage }}</div>
 
     <div class="content-grid">
       <aside class="panel control-panel">
@@ -112,7 +139,11 @@ onMounted(loadCourses)
       </aside>
 
       <section class="results-panel" aria-label="Generated schedule options">
-        <ScheduleOptionList :options="scheduleOptions" :generated="generated" />
+        <ScheduleOptionList
+          :options="scheduleOptions"
+          :generated="generated"
+          @save="handleSave"
+        />
       </section>
     </div>
   </section>
@@ -199,6 +230,11 @@ h1 {
 .error {
   color: #9f1c14;
   background: #fef3f2;
+}
+
+.success {
+  color: #17643a;
+  background: #ecfdf3;
 }
 
 .content-grid {
