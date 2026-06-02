@@ -11,17 +11,42 @@ A full-stack web application that helps students generate optimized course and w
 - Vite
 - Vitest
 - GitHub Actions
-- Cloud deployment, planned
+- Production Docker stack
 
 ## Project Structure
 
 ```text
 course-work-scheduler/
   backend/
+    src/main/java/com/scheduler/backend/
+      availability/
+      common/
+      config/
+      course/
+      demo/
+      preference/
+      schedule/
+      savedschedule/
+      section/
   frontend/
+    src/api/
+    src/features/
+  docs/
   .github/workflows/
   docker-compose.yml
 ```
+
+## Architecture
+
+The frontend is a Vue 3 single-page app organized by feature area. It calls a
+Spring Boot REST API through small API modules in `frontend/src/api`.
+
+The backend is organized by domain package. Controllers receive HTTP requests,
+services hold business logic, repositories persist JPA entities, and response
+objects define the API shape returned to the frontend.
+
+PostgreSQL is the production-style database. Backend tests use H2 in PostgreSQL
+compatibility mode so CI can run quickly without starting a database service.
 
 ## Local Development
 
@@ -73,6 +98,12 @@ http://localhost:5173
 During local development, the Vite dev server proxies `/api` requests to the
 Spring Boot backend at `http://localhost:8080`.
 
+The local backend profile enables demo seed data by default. Disable it with:
+
+```bash
+APP_DEMO_DATA_ENABLED=false ./mvnw spring-boot:run
+```
+
 ## Configuration
 
 Example environment files are included for local setup:
@@ -101,6 +132,13 @@ backend/src/main/resources/application-prod.properties
 The root `.env.example` file documents the environment variables used by Docker
 Compose.
 
+Important deployment variables:
+
+```text
+APP_CORS_ALLOWED_ORIGINS=https://your-frontend-domain.example
+APP_DEMO_DATA_ENABLED=false
+```
+
 ## Production-like Docker Stack
 
 To run PostgreSQL, the Spring Boot API, and the built Vue frontend together:
@@ -128,6 +166,27 @@ requests to the backend container.
 The Compose stack sets `SPRING_JPA_HIBERNATE_DDL_AUTO=update` so a fresh local
 demo database can initialize itself. For a hosted production database, use a
 migration tool and keep the production profile default of `validate`.
+
+Demo seed data is enabled in the Docker stack by default. To start with an empty
+database, set this in `.env`:
+
+```text
+APP_DEMO_DATA_ENABLED=false
+```
+
+## Deployment
+
+Deployment planning and environment variables are documented in:
+
+```text
+docs/deployment.md
+```
+
+Suggested presentation flow:
+
+```text
+docs/demo-script.md
+```
 
 ## Tests
 
@@ -177,7 +236,23 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 - Local frontend `/api` proxy setup
 - GitHub Actions CI workflow
 - Dockerized backend and frontend services
+- Environment-driven CORS configuration
+- Demo seed data for portfolio walkthroughs
+- Deployment and demo documentation
+
+## What This Demonstrates
+
+- Full-stack feature delivery across Vue, Spring Boot, and PostgreSQL
+- Domain-oriented backend design with controllers, services, repositories, and DTOs
+- Constraint-based schedule generation and scoring
+- Calendar-based frontend visualization
+- Saved schedule comparison workflow
+- Automated pull request checks with GitHub Actions
+- Docker-based local production simulation
+- Deployment-aware configuration using Spring profiles and environment variables
 
 ## Planned Features
 
-- Cloud deployment
+- Hosted cloud demo
+- Database migrations
+- Authentication and multi-user accounts
