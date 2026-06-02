@@ -10,7 +10,7 @@ A full-stack web application that helps students generate optimized course and w
 - Docker
 - Vite
 - Vitest
-- GitHub Actions, planned
+- GitHub Actions
 - Cloud deployment, planned
 
 ## Project Structure
@@ -19,6 +19,7 @@ A full-stack web application that helps students generate optimized course and w
 course-work-scheduler/
   backend/
   frontend/
+  .github/workflows/
   docker-compose.yml
 ```
 
@@ -47,6 +48,12 @@ Health check:
 
 ```text
 http://localhost:8080/api/health
+```
+
+Actuator health check:
+
+```text
+http://localhost:8080/actuator/health
 ```
 
 ### Start Frontend
@@ -78,6 +85,50 @@ frontend/.env.example
 The backend also provides local defaults in `application.properties`, so Docker
 Compose plus `./mvnw spring-boot:run` works without extra configuration.
 
+The backend uses Spring profiles:
+
+```text
+local  default profile for local development
+prod   production-oriented profile for Docker/deployment
+```
+
+Production settings are defined in:
+
+```text
+backend/src/main/resources/application-prod.properties
+```
+
+The root `.env.example` file documents the environment variables used by Docker
+Compose.
+
+## Production-like Docker Stack
+
+To run PostgreSQL, the Spring Boot API, and the built Vue frontend together:
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+Frontend:
+
+```text
+http://localhost:5173
+```
+
+Backend:
+
+```text
+http://localhost:8080
+```
+
+The frontend container serves the compiled Vue app with Nginx and proxies `/api`
+requests to the backend container.
+
+The Compose stack sets `SPRING_JPA_HIBERNATE_DDL_AUTO=update` so a fresh local
+demo database can initialize itself. For a hosted production database, use a
+migration tool and keep the production profile default of `validate`.
+
 ## Tests
 
 ### Backend
@@ -98,12 +149,18 @@ npm run test:unit -- --run
 npm run build
 ```
 
+### CI
+
+GitHub Actions runs backend tests, frontend linting, frontend unit tests, and the
+frontend production build on pull requests and pushes to `develop` or `main`.
+
 ## Current Features
 
 - Spring Boot backend setup
 - Vue frontend setup
 - PostgreSQL database setup
 - Health check REST endpoint
+- Actuator health/info endpoints
 - Course CRUD REST API
 - Course management UI
 - Section and meeting-time REST API
@@ -118,6 +175,8 @@ npm run build
 - Saved schedule comparison UI
 - Basic backend validation and error responses
 - Local frontend `/api` proxy setup
+- GitHub Actions CI workflow
+- Dockerized backend and frontend services
 
 ## Planned Features
 
