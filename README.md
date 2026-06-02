@@ -7,6 +7,7 @@ A full-stack web application that helps students generate optimized course and w
 - Vue 3
 - Spring Boot
 - PostgreSQL
+- Flyway
 - Docker
 - Vite
 - Vitest
@@ -47,6 +48,9 @@ objects define the API shape returned to the frontend.
 
 PostgreSQL is the production-style database. Backend tests use H2 in PostgreSQL
 compatibility mode so CI can run quickly without starting a database service.
+
+Flyway owns schema creation and future schema changes. Hibernate validates the
+database schema at startup instead of creating production tables implicitly.
 
 ## Local Development
 
@@ -137,6 +141,8 @@ Important deployment variables:
 ```text
 APP_CORS_ALLOWED_ORIGINS=https://your-frontend-domain.example
 APP_DEMO_DATA_ENABLED=false
+SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+SPRING_FLYWAY_BASELINE_ON_MIGRATE=false
 ```
 
 ## Production-like Docker Stack
@@ -163,9 +169,10 @@ http://localhost:8080
 The frontend container serves the compiled Vue app with Nginx and proxies `/api`
 requests to the backend container.
 
-The Compose stack sets `SPRING_JPA_HIBERNATE_DDL_AUTO=update` so a fresh local
-demo database can initialize itself. For a hosted production database, use a
-migration tool and keep the production profile default of `validate`.
+The Compose stack uses Flyway migrations to initialize a fresh local demo
+database, then Hibernate validates the schema. Local Docker runs baseline
+existing databases by default so earlier development volumes do not block
+startup.
 
 Demo seed data is enabled in the Docker stack by default. To start with an empty
 database, set this in `.env`:
@@ -186,6 +193,12 @@ Suggested presentation flow:
 
 ```text
 docs/demo-script.md
+```
+
+Database migration details:
+
+```text
+docs/database.md
 ```
 
 ## Tests
@@ -239,6 +252,7 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 - Environment-driven CORS configuration
 - Demo seed data for portfolio walkthroughs
 - Deployment and demo documentation
+- Flyway-managed database migrations
 
 ## What This Demonstrates
 
@@ -250,9 +264,9 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 - Automated pull request checks with GitHub Actions
 - Docker-based local production simulation
 - Deployment-aware configuration using Spring profiles and environment variables
+- Production-safe schema management with Flyway migrations
 
 ## Planned Features
 
 - Hosted cloud demo
-- Database migrations
 - Authentication and multi-user accounts

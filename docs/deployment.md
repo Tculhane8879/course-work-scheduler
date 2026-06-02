@@ -21,6 +21,8 @@ SPRING_PROFILES_ACTIVE=prod
 SPRING_DATASOURCE_URL=jdbc:postgresql://<host>:<port>/<database>
 SPRING_DATASOURCE_USERNAME=<database-user>
 SPRING_DATASOURCE_PASSWORD=<database-password>
+SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+SPRING_FLYWAY_BASELINE_ON_MIGRATE=false
 APP_CORS_ALLOWED_ORIGINS=https://<frontend-domain>
 APP_DEMO_DATA_ENABLED=false
 ```
@@ -40,19 +42,22 @@ VITE_API_BASE_URL=https://<backend-domain>
 
 ## Database Notes
 
-The Docker demo stack uses:
+Flyway manages schema creation and future schema changes. Hibernate validates the
+schema at startup:
 
 ```text
-SPRING_JPA_HIBERNATE_DDL_AUTO=update
+SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 ```
 
-That is useful for local demos because the schema can initialize itself. For a
-hosted production database, prefer schema migrations and keep the production
-profile default:
+Migration files live in:
 
 ```text
-spring.jpa.hibernate.ddl-auto=validate
+backend/src/main/resources/db/migration/
 ```
+
+The Docker demo stack sets `SPRING_FLYWAY_BASELINE_ON_MIGRATE=true` by default
+so existing local development volumes can start cleanly. For a fresh hosted
+production database, keep it `false` and let Flyway apply migrations normally.
 
 ## Health Checks
 
@@ -70,7 +75,9 @@ Use `/actuator/health` as the platform health check path for the backend.
 1. Create a managed PostgreSQL database.
 2. Deploy the backend with `SPRING_PROFILES_ACTIVE=prod`.
 3. Set backend database credentials and `APP_CORS_ALLOWED_ORIGINS`.
-4. Confirm `/actuator/health` returns `UP`.
-5. Deploy the frontend.
-6. Configure the frontend API base URL or platform proxy.
-7. Exercise the demo flow from `docs/demo-script.md`.
+4. Keep `SPRING_JPA_HIBERNATE_DDL_AUTO=validate`.
+5. Confirm Flyway runs successfully in the backend startup logs.
+6. Confirm `/actuator/health` returns `UP`.
+7. Deploy the frontend.
+8. Configure the frontend API base URL or platform proxy.
+9. Exercise the demo flow from `docs/demo-script.md`.
