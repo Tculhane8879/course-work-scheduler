@@ -14,6 +14,15 @@ Use hosted services that keep the architecture easy to explain:
 - Backend: Render Web Service, Fly.io, Railway, or similar
 - Database: Render PostgreSQL, Railway PostgreSQL, Neon, Supabase, or another managed PostgreSQL service
 
+For the simplest portfolio demo story, deploy in this order:
+
+1. Managed PostgreSQL database
+2. Spring Boot backend
+3. Vue frontend
+
+This order gives the backend a database URL before startup, then gives the
+frontend a stable backend URL for API calls.
+
 ## Backend Environment Variables
 
 ```text
@@ -25,11 +34,22 @@ SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 SPRING_FLYWAY_BASELINE_ON_MIGRATE=false
 APP_CORS_ALLOWED_ORIGINS=https://<frontend-domain>
 APP_DEMO_DATA_ENABLED=false
+SPRINGDOC_API_DOCS_ENABLED=false
+SPRINGDOC_SWAGGER_UI_ENABLED=false
 ```
 
 For a portfolio demo environment, `APP_DEMO_DATA_ENABLED=true` is acceptable if
 the database is dedicated to demo use. For a real production environment, keep it
 disabled and manage data intentionally.
+
+For a public portfolio demo, enabling Swagger UI can be useful:
+
+```text
+SPRINGDOC_API_DOCS_ENABLED=true
+SPRINGDOC_SWAGGER_UI_ENABLED=true
+```
+
+Disable those again before treating the app as a real production deployment.
 
 ## Frontend Environment Variables
 
@@ -39,6 +59,33 @@ API calls at the backend domain if the platform does not provide a reverse proxy
 ```text
 VITE_API_BASE_URL=https://<backend-domain>
 ```
+
+For Vercel, Netlify, and most static hosts, set this as a frontend environment
+variable before building. For Docker-based frontend hosting, pass it as the
+`VITE_API_BASE_URL` build argument.
+
+If the frontend and backend are served behind the same domain or reverse proxy,
+leave `VITE_API_BASE_URL` empty so the frontend calls relative `/api` paths.
+
+## Hosted Demo Verification
+
+After deployment, verify these URLs in order:
+
+```text
+https://<backend-domain>/actuator/health
+https://<backend-domain>/api/health
+https://<backend-domain>/swagger-ui.html
+https://<frontend-domain>
+```
+
+Then exercise the portfolio walkthrough from `docs/demo-script.md`.
+
+If the frontend loads but API calls fail, check:
+
+- `VITE_API_BASE_URL` points to the deployed backend origin.
+- `APP_CORS_ALLOWED_ORIGINS` includes the exact frontend origin.
+- The backend health check is passing.
+- The database credentials are set on the backend service.
 
 ## Database Notes
 
