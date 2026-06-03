@@ -2,6 +2,57 @@
 
 A full-stack web application that helps students generate optimized course and work schedules based on class sections, work availability, and personal preferences.
 
+## Live Demo
+
+Application:
+
+```text
+https://course-work-scheduler.vercel.app
+```
+
+API:
+
+```text
+https://course-work-scheduler-api.onrender.com
+```
+
+Swagger UI:
+
+```text
+https://course-work-scheduler-api.onrender.com/swagger-ui.html
+```
+
+The backend runs on Render's free tier, so the first request after a quiet
+period can be slow while the service wakes up.
+
+## Screenshots
+
+| Course Management | Constraints + Preferences |
+| --- | --- |
+| ![Course management screen](docs/assets/screenshots/course-management.png) | ![Constraints and schedule preferences screen](docs/assets/screenshots/constraints.png) |
+
+| Generated Schedules | Saved Schedule Comparison |
+| --- | --- |
+| ![Generated ranked schedules with weekly calendar](docs/assets/screenshots/generated-schedules.png) | ![Saved schedule comparison screen](docs/assets/screenshots/saved-schedules.png) |
+
+## Portfolio Highlights
+
+This project demonstrates end-to-end full-stack development: a Vue 3 frontend, a
+Spring Boot REST API, PostgreSQL persistence, Flyway migrations, Dockerized
+deployment, CI checks, OpenAPI documentation, and a constraint-based schedule
+generation engine.
+
+Key technical highlights:
+
+- Domain-oriented Spring Boot backend with controllers, services, repositories, DTOs, and validation
+- Schedule generation engine that builds section combinations, rejects conflicts, and ranks valid options
+- PostgreSQL schema managed with Flyway and validated by Hibernate
+- Vue workflow for managing courses, constraints, generated schedules, and saved schedule comparisons
+- Docker Compose local production simulation
+- Hosted deployment with Vercel, Render, and Neon
+- OpenAPI/Swagger documentation for API inspection
+- GitHub Actions CI for backend tests, frontend tests, linting, and builds
+
 ## Tech Stack
 
 - Vue 3
@@ -13,6 +64,9 @@ A full-stack web application that helps students generate optimized course and w
 - Vite
 - Vitest
 - GitHub Actions
+- Vercel
+- Render
+- Neon
 - Production Docker stack
 
 ## Project Structure
@@ -198,28 +252,6 @@ APP_DEMO_DATA_ENABLED=false
 
 ## Deployment
 
-Live portfolio demo:
-
-```text
-https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
-```
-
-Hosted API:
-
-```text
-https://course-work-scheduler-api.onrender.com
-```
-
-## Screenshots
-
-| Course Management | Constraints + Preferences |
-| --- | --- |
-| ![Course management screen](docs/assets/screenshots/course-management.png) | ![Constraints and schedule preferences screen](docs/assets/screenshots/constraints.png) |
-
-| Generated Schedules | Saved Schedule Comparison |
-| --- | --- |
-| ![Generated ranked schedules with weekly calendar](docs/assets/screenshots/generated-schedules.png) | ![Saved schedule comparison screen](docs/assets/screenshots/saved-schedules.png) |
-
 Deployment planning and environment variables are documented in:
 
 ```text
@@ -279,24 +311,6 @@ npm run build
 GitHub Actions runs backend tests, frontend linting, frontend unit tests, and the
 frontend production build on pull requests and pushes to `develop` or `main`.
 
-## Portfolio Highlights
-
-This project demonstrates end-to-end full-stack development: a Vue 3 frontend, a
-Spring Boot REST API, PostgreSQL persistence, Flyway migrations, Dockerized
-deployment, CI checks, OpenAPI documentation, and a constraint-based schedule
-generation engine.
-
-Key technical highlights:
-
-- Domain-oriented Spring Boot backend with controllers, services, repositories, DTOs, and validation
-- Schedule generation engine that builds section combinations, rejects conflicts, and ranks valid options
-- PostgreSQL schema managed with Flyway and validated by Hibernate
-- Vue workflow for managing courses, constraints, generated schedules, and saved schedule comparisons
-- Docker Compose local production simulation
-- Hosted deployment with Vercel, Render, and Neon
-- OpenAPI/Swagger documentation for API inspection
-- GitHub Actions CI for backend tests, frontend tests, linting, and builds
-
 ## Current Features
 
 - Spring Boot backend setup
@@ -325,6 +339,8 @@ Key technical highlights:
 - Deployment and demo documentation
 - Flyway-managed database migrations
 - Interactive OpenAPI documentation
+- Hosted demo on Vercel, Render, and Neon
+- README screenshots for portfolio review
 
 ## What This Demonstrates
 
@@ -342,4 +358,3 @@ Key technical highlights:
 ## Planned Features
 
 - Authentication and multi-user accounts
-- Portfolio screenshots or demo GIF

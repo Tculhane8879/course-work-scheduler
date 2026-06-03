@@ -5,7 +5,7 @@ This is the recommended hosted portfolio deployment path for this project.
 ## Live URLs
 
 ```text
-Frontend: https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
+Frontend: https://course-work-scheduler.vercel.app
 Backend:  https://course-work-scheduler-api.onrender.com
 Swagger:  https://course-work-scheduler-api.onrender.com/swagger-ui.html
 Health:   https://course-work-scheduler-api.onrender.com/actuator/health
@@ -122,6 +122,12 @@ After Vercel gives you the production frontend URL, update Render:
 
 ```text
 APP_CORS_ALLOWED_ORIGINS=https://<vercel-frontend-domain>
+```
+
+The current hosted demo uses:
+
+```text
+APP_CORS_ALLOWED_ORIGINS=https://course-work-scheduler.vercel.app
 ```
 
 Redeploy or restart the Render backend after changing the environment variable.
