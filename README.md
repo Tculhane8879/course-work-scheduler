@@ -8,6 +8,7 @@ A full-stack web application that helps students generate optimized course and w
 - Spring Boot
 - PostgreSQL
 - Flyway
+- Springdoc OpenAPI
 - Docker
 - Vite
 - Vitest
@@ -85,6 +86,18 @@ Actuator health check:
 http://localhost:8080/actuator/health
 ```
 
+Interactive API documentation:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
+
+OpenAPI JSON:
+
+```text
+http://localhost:8080/v3/api-docs
+```
+
 ### Start Frontend
 
 ```bash
@@ -143,6 +156,8 @@ APP_CORS_ALLOWED_ORIGINS=https://your-frontend-domain.example
 APP_DEMO_DATA_ENABLED=false
 SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 SPRING_FLYWAY_BASELINE_ON_MIGRATE=false
+SPRINGDOC_API_DOCS_ENABLED=false
+SPRINGDOC_SWAGGER_UI_ENABLED=false
 ```
 
 ## Production-like Docker Stack
@@ -201,6 +216,12 @@ Database migration details:
 docs/database.md
 ```
 
+API documentation details:
+
+```text
+docs/api.md
+```
+
 ## Tests
 
 ### Backend
@@ -217,7 +238,7 @@ PostgreSQL.
 
 ```bash
 cd frontend
-npm run test:unit -- --run
+npm test
 npm run build
 ```
 
@@ -253,6 +274,7 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 - Demo seed data for portfolio walkthroughs
 - Deployment and demo documentation
 - Flyway-managed database migrations
+- Interactive OpenAPI documentation
 
 ## What This Demonstrates
 
@@ -265,6 +287,7 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 - Docker-based local production simulation
 - Deployment-aware configuration using Spring profiles and environment variables
 - Production-safe schema management with Flyway migrations
+- API contract documentation with OpenAPI and Swagger UI
 
 ## Planned Features
 

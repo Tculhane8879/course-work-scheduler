@@ -16,6 +16,12 @@ Open:
 http://localhost:5173
 ```
 
+API documentation:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
+
 The Docker demo stack enables seed data by default, so the app starts with sample
 courses, sections, availability blocks, and schedule preferences.
 
@@ -29,6 +35,7 @@ courses, sections, availability blocks, and schedule preferences.
 5. Open the weekly calendar view to show how conflicts and gaps become visual.
 6. Save one or two schedules.
 7. Open saved schedules and compare the tradeoffs.
+8. Open Swagger UI and show the API contract behind the workflow.
 
 ## Technical Talking Points
 
@@ -39,3 +46,4 @@ courses, sections, availability blocks, and schedule preferences.
 - Vue presents the workflow as a multi-step scheduling tool.
 - Docker Compose runs the frontend, backend, and database together.
 - GitHub Actions runs backend tests, frontend linting, unit tests, and builds on PRs.
+- Swagger UI exposes the generated OpenAPI contract for backend endpoints.
