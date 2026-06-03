@@ -269,6 +269,24 @@ npm run build
 GitHub Actions runs backend tests, frontend linting, frontend unit tests, and the
 frontend production build on pull requests and pushes to `develop` or `main`.
 
+## Portfolio Highlights
+
+This project demonstrates end-to-end full-stack development: a Vue 3 frontend, a
+Spring Boot REST API, PostgreSQL persistence, Flyway migrations, Dockerized
+deployment, CI checks, OpenAPI documentation, and a constraint-based schedule
+generation engine.
+
+Key technical highlights:
+
+- Domain-oriented Spring Boot backend with controllers, services, repositories, DTOs, and validation
+- Schedule generation engine that builds section combinations, rejects conflicts, and ranks valid options
+- PostgreSQL schema managed with Flyway and validated by Hibernate
+- Vue workflow for managing courses, constraints, generated schedules, and saved schedule comparisons
+- Docker Compose local production simulation
+- Hosted deployment with Vercel, Render, and Neon
+- OpenAPI/Swagger documentation for API inspection
+- GitHub Actions CI for backend tests, frontend tests, linting, and builds
+
 ## Current Features
 
 - Spring Boot backend setup
@@ -313,5 +331,5 @@ frontend production build on pull requests and pushes to `develop` or `main`.
 
 ## Planned Features
 
-- Hosted cloud demo
 - Authentication and multi-user accounts
+- Portfolio screenshots or demo GIF
