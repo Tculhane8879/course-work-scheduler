@@ -2,6 +2,18 @@
 
 This is the recommended hosted portfolio deployment path for this project.
 
+## Live URLs
+
+```text
+Frontend: https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
+Backend:  https://course-work-scheduler-api.onrender.com
+Swagger:  https://course-work-scheduler-api.onrender.com/swagger-ui.html
+Health:   https://course-work-scheduler-api.onrender.com/actuator/health
+```
+
+The backend runs on Render's free tier, so the first request after a quiet
+period can be slow while the service wakes up.
+
 ## Stack
 
 ```text

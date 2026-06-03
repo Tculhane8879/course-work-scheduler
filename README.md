@@ -198,6 +198,18 @@ APP_DEMO_DATA_ENABLED=false
 
 ## Deployment
 
+Live portfolio demo:
+
+```text
+https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
+```
+
+Hosted API:
+
+```text
+https://course-work-scheduler-api.onrender.com
+```
+
 Deployment planning and environment variables are documented in:
 
 ```text
