@@ -204,6 +204,12 @@ Deployment planning and environment variables are documented in:
 docs/deployment.md
 ```
 
+The recommended hosted portfolio stack is documented in:
+
+```text
+docs/deployment-render-neon-vercel.md
+```
+
 For hosted portfolio demos, deploy the database first, then the backend, then
 the frontend. Set the frontend's `VITE_API_BASE_URL` to the deployed backend
 origin unless both services share the same reverse proxy.

@@ -14,6 +14,20 @@ Use hosted services that keep the architecture easy to explain:
 - Backend: Render Web Service, Fly.io, Railway, or similar
 - Database: Render PostgreSQL, Railway PostgreSQL, Neon, Supabase, or another managed PostgreSQL service
 
+The recommended path for this portfolio project is:
+
+```text
+Frontend: Vercel
+Backend: Render
+Database: Neon Postgres
+```
+
+The step-by-step guide lives in:
+
+```text
+docs/deployment-render-neon-vercel.md
+```
+
 For the simplest portfolio demo story, deploy in this order:
 
 1. Managed PostgreSQL database
