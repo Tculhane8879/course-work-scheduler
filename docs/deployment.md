@@ -9,7 +9,7 @@ This project is split into three deployable pieces:
 ## Live Portfolio Demo
 
 ```text
-Frontend: https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
+Frontend: https://course-work-scheduler.vercel.app
 Backend:  https://course-work-scheduler-api.onrender.com
 Swagger:  https://course-work-scheduler-api.onrender.com/swagger-ui.html
 Health:   https://course-work-scheduler-api.onrender.com/actuator/health

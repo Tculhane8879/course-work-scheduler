@@ -3,6 +3,23 @@
 Use this flow when presenting the project to a recruiter, interviewer, or
 portfolio reviewer.
 
+## Hosted Demo
+
+Open:
+
+```text
+https://course-work-scheduler.vercel.app
+```
+
+API documentation:
+
+```text
+https://course-work-scheduler-api.onrender.com/swagger-ui.html
+```
+
+The backend runs on Render's free tier, so the first request after a quiet
+period can be slow while the service wakes up.
+
 ## Local Docker Demo
 
 ```bash

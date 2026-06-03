@@ -16,6 +16,23 @@ The raw OpenAPI JSON is available at:
 http://localhost:8080/v3/api-docs
 ```
 
+## Hosted URLs
+
+The hosted portfolio API documentation is available at:
+
+```text
+https://course-work-scheduler-api.onrender.com/swagger-ui.html
+```
+
+The hosted OpenAPI JSON is available at:
+
+```text
+https://course-work-scheduler-api.onrender.com/v3/api-docs
+```
+
+The backend runs on Render's free tier, so the first request after a quiet
+period can be slow while the service wakes up.
+
 ## Endpoint Groups
 
 The API is organized around the same workflow as the frontend.
