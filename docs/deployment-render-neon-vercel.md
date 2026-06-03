@@ -80,12 +80,16 @@ After the frontend deploys, replace it with the exact Vercel production origin.
 The blueprint sets these portfolio-demo defaults:
 
 ```text
+SERVER_PORT=10000
 APP_DEMO_DATA_ENABLED=true
 SPRINGDOC_API_DOCS_ENABLED=true
 SPRINGDOC_SWAGGER_UI_ENABLED=true
 SPRING_FLYWAY_BASELINE_ON_MIGRATE=false
 SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 ```
+
+`SERVER_PORT=10000` makes Spring Boot bind to Render's expected web service
+port.
 
 Render health check path:
 
