@@ -6,6 +6,18 @@ This project is split into three deployable pieces:
 - Spring Boot backend
 - PostgreSQL database
 
+## Live Portfolio Demo
+
+```text
+Frontend: https://course-work-scheduler-ri7l2mmoc-thomas-culhane-s-projects.vercel.app
+Backend:  https://course-work-scheduler-api.onrender.com
+Swagger:  https://course-work-scheduler-api.onrender.com/swagger-ui.html
+Health:   https://course-work-scheduler-api.onrender.com/actuator/health
+```
+
+The backend runs on Render's free tier, so the first request after a quiet
+period can be slow while the service wakes up.
+
 ## Recommended Portfolio Deployment
 
 Use hosted services that keep the architecture easy to explain:
