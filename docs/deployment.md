@@ -53,6 +53,7 @@ frontend a stable backend URL for API calls.
 
 ```text
 SPRING_PROFILES_ACTIVE=prod
+SERVER_PORT=10000
 SPRING_DATASOURCE_URL=jdbc:postgresql://<host>:<port>/<database>
 SPRING_DATASOURCE_USERNAME=<database-user>
 SPRING_DATASOURCE_PASSWORD=<database-password>
