@@ -210,6 +210,16 @@ Hosted API:
 https://course-work-scheduler-api.onrender.com
 ```
 
+## Screenshots
+
+| Course Management | Constraints + Preferences |
+| --- | --- |
+| ![Course management screen](docs/assets/screenshots/course-management.png) | ![Constraints and schedule preferences screen](docs/assets/screenshots/constraints.png) |
+
+| Generated Schedules | Saved Schedule Comparison |
+| --- | --- |
+| ![Generated ranked schedules with weekly calendar](docs/assets/screenshots/generated-schedules.png) | ![Saved schedule comparison screen](docs/assets/screenshots/saved-schedules.png) |
+
 Deployment planning and environment variables are documented in:
 
 ```text
